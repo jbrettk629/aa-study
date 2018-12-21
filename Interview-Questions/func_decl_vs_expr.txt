@@ -1,0 +1,21 @@
+1) What is the difference between a function declaration and a function expression?
+
+There are three ways to create functions in javascript
+    - function declaration (function gets HOISTED)
+        function foo(params){
+            logic
+        }
+    - function expression (function NOT hoisted)
+        let  foo = function(params){
+            logic
+        }
+    - named function expression
+        let funcVariable = function funcName(params){
+            logic
+        }
+
+A large difference is that the function is hoisted using the function declaration method. This means that the function can be executedd before it is declared. This is helpful when you want to abstract some logic into a function body and the actual implementation will be done at some later point of time.
+
+A function expression creates an anonymous function that is stored in a variable. You can then invoke the function using the variable.
+
+Named function expressions are NOT anonymous, they have a name. HOWEVER, you can not invoke the function using the name, UNLESS you are invoking it inside of itself.
