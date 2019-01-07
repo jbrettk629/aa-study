@@ -80,3 +80,25 @@ function reverse(arr){
 // - to sort the strings in the array takes O(s) time to look through the string and there are O(a loga) comparisons, for a runtime of (a*s loga)
 // - these get combined for O(a*s(loga + logs))
 
+
+// Example 9 - the following code sums the values of all the nodes in a balanced binary search tree. What is its runtime?
+function sum(node){
+    if (node === null){
+        return 0;
+    }
+    return sum(node.left) + sum(node.value) + sum(node.right);
+}
+// the runtime will be O(N) since it touches each node once and does the same amount of work for each node
+
+// Example 10 - the following code checks if a number is prime by checking divisibility on the numbers less than it. What is it's runtime?
+
+function isPrime(n){
+    for (let x = 2; x*x<=n; x++){
+        if (n % x === 0){
+            return false
+        }
+    }
+    return true;
+}
+
+// its runtime will be O(sqrt(n)), since it will not check past the sqrt(n)
