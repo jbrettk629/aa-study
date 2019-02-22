@@ -140,7 +140,7 @@ function fib(n){
 
 function allFib(n){
     for ( let i = 0; i < n; i ++){
-        print ""
+    
     }
 }
 
