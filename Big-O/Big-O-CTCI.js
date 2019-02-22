@@ -103,4 +103,45 @@ function isPrime(n){
 
 // its runtime will be O(sqrt(n)), since it will not check past the sqrt(n)
 
-// 
+// Example 11 - the folowing code computes n!. What is its time complexity?
+
+function factorial(n){
+    if (n<0){
+        return -1;
+    } else if (n===1){ 
+        return 1;
+    } else {
+        return n * factorial(n-1);
+    }
+}
+
+// since the function will have n recursive calls, and each call will be constant, the runtime is O(N)
+
+// Example 12 - the follow code counts all permutations of a string
+
+function permutations(str){
+
+}
+
+// Example 13 - The following code computes the Nth fibonacci number
+
+function fib(n){
+    if (n <= 0){
+        return 0;
+    } else if (n === 1){
+        return 1;
+    }
+    return fib(n-1) + fib(n-2);
+}
+
+// we can use the earlier pattern we established for recursive calls: O(branches^depth). Since there are two branches for each node, we have a runtime of (2^N). However, since the first node is just called once, it's actually O(1.6^N).
+
+// Example 14 - the following code prints all fibonacci numbers from 0 to n. What is the time complexity?
+
+function allFib(n){
+    for ( let i = 0; i < n; i ++){
+        print ""
+    }
+}
+
+
