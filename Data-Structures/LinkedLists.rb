@@ -104,3 +104,16 @@ class LinkedList
     end
 	
 end
+
+list = LinkedList.new
+list.append(1)
+list.append(5)
+list.append(2)
+list.append(3)
+list.append(2)
+list.append(4)
+list.append(3)
+list.append(1)
+list.return_list
+list.remove_dups_with_runner
+list.return_list
