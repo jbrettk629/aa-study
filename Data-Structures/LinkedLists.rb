@@ -64,5 +64,43 @@ class LinkedList
 			print nodes
 			nodes
 		end 
+
+		def remove_dups
+      values = Hash.new(0)
+      current_node = @head
+      while current_node
+        puts values
+        if values[current_node.value] == 0
+          values[current_node.value] = 1
+          current_node = current_node.next
+        else
+          last_node = current_node.previous
+          next_node = current_node.next
+          last_node.next = next_node
+          next_node.previous = last_node unless next_node == nil
+          current_node = next_node
+        end
+      end
+      return @head
+    end
+
+    def remove_dups_with_runner
+      current_node = @head
+      while current_node
+        runner = current_node
+        while (runner && runner.next)
+          if runner.next.value == current_node.value
+            runner.next.next.previous = runner unless runner.next.next == nil
+            runner.next = runner.next.next
+          end
+          runner = runner.next
+        end
+        current_node = current_node.next
+      end
+    end
+
+    def partition(value)
+      
+    end
 	
 end
