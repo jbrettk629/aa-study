@@ -12,19 +12,12 @@
 
 
 # Specification:
-
 #     Create a class LeaderBoard whose interface includes the following methods:
-
-#     Method Name: add_score
-
-#
-
-#     Method Name: top
-
-#     Method Name: reset
+	#     Method Name: add_score
+	#     Method Name: top
+	#     Method Name: reset
 
 # Example Usage:
-
 
 #     // Create a new LeaderBoard Instance
 #     LeaderBoard leader_board = new LeaderBoard();
@@ -59,45 +52,104 @@
 
 
 # Your code goes here. Feel free to make helper classes if needed
+
+class Game 
+	
+	def initialize
+		@leaderboard = LeaderBoard.new
+		@players = {}
+		@id = 1
+	end 
+
+	def add_player
+		new_player = Player.new(@id)
+		@players = 
+		@id += 1
+	end
+end
+
+
 class LeaderBoard
-  
-  attr_reader :scores
-  
+
+  attr_reader :players, :averages
+
   def initialize
-    @scores = Hash.new {|h, k| h[k] = [] }
-    @averages = Hash.new(0)
+    @player_count = 0
+    @players = {}
+    @averages = {}
   end
-  
-  
+
   def add_score(player_id, score)
-    @scores[player_id]
-    players_scores = @scores[player_id] << score
-    
-    average = players_scores.inject(:+) / players_scores.count.to_f 
-    @averages[player_id] = average
-
-    @averages[player_id]
+    if @players[player_id] == nil
+      @players[player_id] = Player.new(player_id)
+      @player_count += 1
+    end
+    @players[player_id].add_score(score)
+    @averages[player_id] = @players[player_id].average
+    @players[player_id].average
   end
 
-  def top(num_players)
-      sorted_averages = @averages.sort_by { |id, avg | avg }.reverse
-
-      i = 0
-      top_players = []
-      while i < num_players
-        top_players << sorted_averages[i][0]
-        i += 1
-      end
-
+	def top(num)
+		
+    if (num <= 0) || (num % 1 != 0)
+      print "You must choose an integer greater than 0\n"
+      return
+		end
+		
+    num = @player_count if num > @player_count
+    sorted_avgs = @averages.sort_by {|player_id, avg| avg}.reverse
+		top_players = []
+		
+    i = 0
+    while i < num
+      top_players << sorted_avgs[i][0]
+      i+=1
+		end
+		
     top_players
   end
-    
+
   def reset(player_id)
-    @scores[player_id] = []
-    @averages[player_id] = 0
+    if !@players[player_id] 
+      print "That player doesn't exist\n"
+      return
+    end    
+    @players[player_id].clear_scores
+    @averages[player_id] = @players[player_id].average
   end
 end
-    
+
+class Player
+
+  attr_reader :scores, :average
+
+	def initialize(player_id)
+		@id = player_id
+    @score_count = 0
+    @total_score = 0
+    @average = 0
+    @scores = []
+  end
+
+  def add_score(score)
+    @scores << []
+    calculate_average(score)
+  end
+
+  def clear_scores
+    @score_count = 0
+    @total_score = 0
+    @scores = []
+    @average = 0
+  end
+  
+  def calculate_average(new_score) 
+    @total_score += new_score
+    @score_count += 1
+    @average = @total_score / @score_count.to_f
+  end
+
+end
 
 # Here is some example test code. It doesn't test everything. feel free to expand upon it.
 leader_board = LeaderBoard.new()
@@ -110,7 +162,10 @@ puts(leader_board.add_score(3, 85) == 87.5)
 
 puts(leader_board.top(3) == [3, 2, 1])
 puts(leader_board.top(2) == [3, 2])
+puts (leader_board.top(2.5) == nil)
+leader_board.reset(5)
+leader_board.reset(-1)
 leader_board.reset(3)
-puts(leader_board.top(3) == [2, 1, 3])
-print leader_board.scores
+puts(leader_board.top(5) == [2, 1, 3])
+print leader_board.averages
 #  */
