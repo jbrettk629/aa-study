@@ -119,7 +119,7 @@ function factorial(n){
 
 // Example 12 - the follow code counts all permutations of a string
 
-function permutations(str){
+function permutations(str, prefix){
 
 }
 
